@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        editItem = findViewById(R.id.edit_item);
 
         arrList = new ArrayList<String>();
         ListView list1 = findViewById(R.id.list1);
@@ -30,6 +32,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 arrList.add(editItem.getText().toString());
                 adapter.notifyDataSetChanged();
+                editItem.setText("");
+            }
+        });
+        list1.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                arrList.remove(position);
+                adapter.notifyDataSetChanged();
+                return false;
             }
         });
     }
